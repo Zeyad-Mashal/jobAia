@@ -32,8 +32,7 @@ const Login = async (req, res) => {
             return res.status(400).json({ message: "Password not correct" });
         }
         let token = jwt.sign({ id: FindUser._id }, "secret");
-        res.cookie("jwt", token, { httpOnly: true, maxAge: 172800000 })
-        return res.status(200).json({ message: "Login successful", user: FindUser });
+        return res.status(200).json({ message: "Login successful", user: FindUser, token });
     } catch (err) {
         return res.status(401).json({ message: "User not Found", err: err.message });
     }
