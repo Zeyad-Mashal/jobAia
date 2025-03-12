@@ -1,9 +1,11 @@
 {
   "name": "jobaia",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "index.js",
+  "engines": {
+    "node": "22.x"},
   "scripts": {
-    "start": "node app.js",
+    "start": "node index.js",
     "watch": "nodemon --ext *"
   },
   "keywords": [],
