@@ -5,13 +5,13 @@ const path = require("path");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const { ViewApplication, CreateApplication } = require("./Controller/Application.controller");
+const {ViewApplication , CreateApplication} = require("./Controller/Application.controller");
 
 
 
-router.get('/application', ViewApplication);
+router.get('/application',ViewApplication);
 
-router.post('/application', upload.single("CV"), CreateApplication);
+router.post('/application', upload.single("CV") , CreateApplication );
 
 
 module.exports = router;

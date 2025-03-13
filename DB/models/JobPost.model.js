@@ -75,8 +75,8 @@ ApplicationSchema.statics.paginate = async function (page, limit) {
       hasNextPage: page < totalPages,
       hasPrevPage: page > 1
     };
-  }
-  catch (e) {
+  } 
+  catch(e){
     res.status(500).send({ apiStatus: false, data: e.message, message: "service unavalibale" })
 
   }
