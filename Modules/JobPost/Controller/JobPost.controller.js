@@ -10,41 +10,6 @@ const ViewJobs =  async (req, res) => {
     }
 };
 
-const ViewPaginatedJobs = async (req, res) => {
-    try {
-
-
-        const page = parseInt(req.params.page) || 1;
-        
-  
-        const limit = 10;
-        
-
-        const result = await JobPost.paginate(page, limit);
-        if(!result.totalPages) {
-            return res.status(200).json({
-            success: true,
-            count: result.jobs.length,
-            data: result.jobs,
-            pagination: {
-                currentPage: result.currentPage,
-                totalPages: result.totalPages,
-                totalJobs: result.totalJobs,
-                hasNextPage: result.hasNextPage,
-                hasPrevPage: result.hasPrevPage
-            }
-        });
-    }
-    else{
-        return res.status(404).send({success:false,data:"there is know such a page" })
-    }
-    
-        
-    } 
-    catch (e) {
-        res.status(500).send({success:false,data:e.message,message:"service unavalibale" });
-    }
-};
 
 const CreateJob =  async (req, res) => {
     try{
@@ -79,4 +44,4 @@ const CreateJob =  async (req, res) => {
 }
 
 
-module.exports = { ViewJobs, CreateJob,ViewPaginatedJobs };
+module.exports = { ViewJobs, CreateJob };

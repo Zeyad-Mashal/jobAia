@@ -8,12 +8,10 @@ const JobPostRoutes = require("../Modules/JobPost/JobPost.routes");
 
 const searchRoute = require("../Modules/search/search.routes")
 
-const filterRoute = require('../Modules/filter/filter.routes')
 module.exports= {
     AuthRoutes,
     ApplicationRoutes,
     FeedbackRoutes,
     JobPostRoutes,
-    searchRoute,
-    filterRoute
+    searchRoute
 } 
