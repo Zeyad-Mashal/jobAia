@@ -15,9 +15,16 @@ const ViewApplication = async (req, res) => {
 const CreateApplication = async (req, res) => {
     try {
         const application = req.body;
+        application.CV = {
+            data: req.file.buffer,
+            contentType: req.file.mimetype,
+        };
+        if (!req.file) {
+            return res.status(201).send("file not uploaded");
+        }
         const newApplication = await Application.create(application);
 
-        return res.status(201).json({ massage: "file uploaded successfully", Data: newApplication });
+        return res.status(201).json({ massage: "file uploaded successfully", Data: newApplication, file: { fileName: req.file.filename, path: req.file.path, size: req.file.size } });
 
     } catch (err) {
         return res.status(401).json({ message: "something went wrong", err: err.message });

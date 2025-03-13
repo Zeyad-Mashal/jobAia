@@ -46,8 +46,8 @@ const ApplicationSchema = new mongoose.Schema({
     required: true,
   },
   Document: {
-    type: String,
-    required: true,
+    data: Buffer,
+    contentType: String,
   },
 });
 ApplicationSchema.statics.paginate = async function (page, limit) {
