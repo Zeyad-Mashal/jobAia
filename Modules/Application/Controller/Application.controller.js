@@ -17,7 +17,7 @@ const CreateApplication = async (req, res) => {
         const application = req.body;
         const newApplication = await Application.create(application);
 
-        return res.status(201).json({ massage: "file uploaded successfully", Data: newApplication, file: { fileName: req.file.filename, path: req.file.path, size: req.file.size } });
+        return res.status(201).json({ massage: "file uploaded successfully", Data: newApplication });
 
     } catch (err) {
         return res.status(401).json({ message: "something went wrong", err: err.message });
