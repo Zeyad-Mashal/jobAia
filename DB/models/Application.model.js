@@ -59,8 +59,8 @@ const ApplicationSchema = new mongoose.Schema({
     type: Number,
   },
   CV: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    required: true,
   },
 });
 

@@ -3,38 +3,39 @@ const jwt = require("jsonwebtoken");
 const users = require("../../../DB/models/Auth.model");
 
 
-const Register = async (req, res) => {
+const Register =  async (req, res) => {
     try {
-        const { CompanyName, email, password, role } = req.body;
-        const emailExists = await users.findOne({ email });
-        if (emailExists) {
-            return res.status(400).json({ message: "Email already in use" });
-        }
-        if (password.length < 6) {
-            return res.status(400).json({ message: "Password must be at least 6 characters" });
-        }
-        await users.create({ CompanyName, email, password, role });
-        return res.status(201).json({ message: "User created successfully", user: req.body });
+      const { CompanyName, email, password, role } = req.body;
+      const emailExists = await users.findOne({email});
+      if(emailExists){
+          return res.status(400).json({message : "Email already in use"});
+      }
+      if(password.length < 6){
+          return res.status(400).json({message : "Password must be at least 6 characters"});
+      }
+      users.create({ CompanyName, email, password, role });
+      return res.status(201).json({ message: "User created successfully", user: req.body });
     } catch (err) {
-        return res.status(401).json({ message: "User not successful created", err: err.message });
+      return res.status(401).json({message: "User not successful created", err: err.message});
     }
-}
+  }
 
-const Login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const FindUser = await users.findOne({ email });
-        if (!FindUser) {
-            return res.status(400).json({ message: "Email not found" });
+const Login =  async (req , res) =>{
+    try{
+        const {email , password} = req.body;
+        const FindUser = await users.findOne({email});
+        if(!FindUser){
+            return res.status(400).json({message : "Email not found"});
         }
         const match = await bcrypt.compare(password, FindUser.password);
-        if (!match) {
-            return res.status(400).json({ message: "Password not correct" });
+        if(!match){
+            return res.status(400).json({message : "Password not correct"});
         }
-        let token = jwt.sign({ id: FindUser._id }, "secret");
-        return res.status(200).json({ message: "Login successful", user: FindUser, token });
-    } catch (err) {
-        return res.status(401).json({ message: "User not Found", err: err.message });
+        let token = jwt.sign({id : FindUser._id} , "secret");
+        res.cookie("jwt" , token , {httpOnly:true , maxAge: 86400000})
+        return res.status(200).json({message : "Login successful", user: FindUser});
+    }catch(err){
+        return res.status(401).json({message: "User not Found", err: err.message});
     }
 }
 
