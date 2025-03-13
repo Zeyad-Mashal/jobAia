@@ -14,8 +14,10 @@ const ViewApplication = async (req, res) => {
 
 const CreateApplication = async (req, res) => {
     try {
-        const application = req.body;
-        const newApplication = await Application.create(application);
+        const { firstName, lastName, mandatoryAddress, optionalAddress, city, state, zipCode, phoneNabmer, alternateNumber, jobNeeded, otherJob, WorkingPeriod, workedUs, workedUsWhen_month, workedUsWhen_day, workedUsWhen_year, CV } = req.body;
+        const newApplication = await Application.create({
+            firstName, lastName, mandatoryAddress, optionalAddress, city, state, zipCode, phoneNabmer, alternateNumber, jobNeeded, otherJob, WorkingPeriod, workedUs, workedUsWhen_month, workedUsWhen_day, workedUsWhen_year, CV
+        });
 
         return res.status(201).json({ massage: "file uploaded successfully", Data: newApplication, file: { fileName: req.file.filename, path: req.file.path, size: req.file.size } });
 
