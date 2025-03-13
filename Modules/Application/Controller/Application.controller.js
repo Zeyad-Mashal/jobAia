@@ -19,7 +19,7 @@ const CreateApplication = async (req, res) => {
             firstName, lastName, mandatoryAddress, optionalAddress, city, state, zipCode, phoneNabmer, alternateNumber, jobNeeded, otherJob, WorkingPeriod, workedUs, workedUsWhen_month, workedUsWhen_day, workedUsWhen_year, CV
         });
 
-        return res.status(201).json({ massage: "file uploaded successfully", Data: newApplication, file: { fileName: req.file.filename, path: req.file.path, size: req.file.size } });
+        return res.status(201).json({ massage: "file uploaded successfully", Data: newApplication });
 
     } catch (err) {
         return res.status(401).json({ message: "something went wrong", err: err.message });
