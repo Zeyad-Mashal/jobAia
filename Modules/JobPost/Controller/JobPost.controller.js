@@ -1,8 +1,8 @@
 const JobPost = require("../../../DB/models/JobPost.model");
 
-const ViewJobs =  async (req, res) => {
+const ViewJobs = async (req, res) => {
     try {
-        const jopPost = await JobPost.find({}).populate({path:"createdBy", select: "email"});
+        const jopPost = await JobPost.find({}).populate({ path: "createdBy", select: "email" });
 
         return res.status(200).json(jopPost);
     } catch (err) {
@@ -11,34 +11,28 @@ const ViewJobs =  async (req, res) => {
 };
 
 
-const CreateJob =  async (req, res) => {
-    try{
+const CreateJob = async (req, res) => {
+    try {
         const id = req.params.id;
-        const {CompanyName , jobTitle , jobType , country , city , area , salary , jobDescription , jobRequirements , requiredSkills } = req.body;
-        if(!req.file){
-            return res.status(201).send("file not uploaded");
-        }
+        const { CompanyName, jobTitle, jobType, country, city, area, salary, jobDescription, jobRequirements, requiredSkills, Document } = req.body;
         const newJopPost = await JobPost.create({
             createdBy: id,
-            CompanyName, 
-            jobTitle ,
-            jobType ,
-            country , 
-            city , 
-            area , 
-            salary , 
-            jobDescription , 
-            jobRequirements , 
-            requiredSkills , 
-            Document :{
-            data: req.file.buffer,
-            contentType: req.file.mimetype,
-            }
+            CompanyName,
+            jobTitle,
+            jobType,
+            country,
+            city,
+            area,
+            salary,
+            jobDescription,
+            jobRequirements,
+            requiredSkills,
+            Document
         });
-        const jopPost  = await JobPost.findById(newJopPost._id).populate({path:"createdBy", select: "email"});
-        return res.status(201).json({massage: "file uploaded successfully", job: jopPost , file:{fileName: req.file.filename , path: req.file.path, size: req.file.size}});
+        const jopPost = await JobPost.findById(newJopPost._id).populate({ path: "createdBy", select: "email" });
+        return res.status(201).json({ massage: "file uploaded successfully", job: jopPost });
 
-    }catch(err){
+    } catch (err) {
         return res.status(401).json({ message: "something went wrong", err: err.message });
     }
 }

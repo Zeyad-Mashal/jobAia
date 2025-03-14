@@ -9,7 +9,7 @@ const ApplicationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  jobTitle : {
+  jobTitle: {
     type: String,
     required: true,
   },
@@ -46,8 +46,8 @@ const ApplicationSchema = new mongoose.Schema({
     required: true,
   },
   Document: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    required: true
   },
 });
 
