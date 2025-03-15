@@ -85,5 +85,14 @@ const getJobById = async (req, res) => {
     }
 }
 
+const newestJobs = async (req, res) => {
+    try {
+        const jobs = await JobPost.find().sort({ createdAt: -1 }).limit(8).populate({ path: "createdBy", select: "email" });
+        return res.status(200).json(jobs);
+    } catch (error) {
+        return res.status(500).json({ message: "Something went wrong", error: error.message });
+    }
+}
 
-module.exports = { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById };
+
+module.exports = { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById, newestJobs };
