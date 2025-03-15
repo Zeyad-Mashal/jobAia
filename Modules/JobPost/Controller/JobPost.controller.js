@@ -72,5 +72,18 @@ const CreateJob = async (req, res) => {
     }
 }
 
+const getJobById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const job = await JobPost.findById(id).populate({ path: "createdBy", select: "email" });
+        if (!job) {
+            return res.status(404).json({ message: "Job not found" });
+        }
+        return res.status(200).json(job);
+    } catch (error) {
+        return res.status(500).json({ message: "Something went wrong", error: error.message });
+    }
+}
 
-module.exports = { ViewJobs, CreateJob, ViewPaginatedJobs };
+
+module.exports = { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById };
