@@ -12,39 +12,28 @@ const ViewJobs = async (req, res) => {
 
 const ViewPaginatedJobs = async (req, res) => {
     try {
-
-
         const page = parseInt(req.query.page) || 1;
-
-
         const limit = 10;
 
-
         const result = await JobPost.paginate(page, limit);
-        if (page === result.totalPages) {
-            return res.status(200).json({
-                success: true,
-                count: result.jobs.length,
-                data: result.jobs,
-                pagination: {
-                    currentPage: result.currentPage,
-                    totalPages: result.totalPages,
-                    totalJobs: result.totalJobs,
-                    hasNextPage: result.hasNextPage,
-                    hasPrevPage: result.hasPrevPage
-                }
-            });
-        }
-        else {
-            return res.status(404).send({ success: false, data: "There is no more pages" })
-        }
 
-
-    }
-    catch (e) {
-        res.status(500).send({ success: false, data: e.message, message: "service unavalibale" });
+        return res.status(200).json({
+            success: true,
+            count: result.jobs.length,
+            data: result.jobs,
+            pagination: {
+                currentPage: result.currentPage,
+                totalPages: result.totalPages,
+                totalJobs: result.totalJobs,
+                hasNextPage: result.hasNextPage,
+                hasPrevPage: result.hasPrevPage
+            }
+        });
+    } catch (e) {
+        res.status(500).send({ success: false, data: e.message, message: "service unavailable" });
     }
 };
+
 
 const CreateJob = async (req, res) => {
     try {
