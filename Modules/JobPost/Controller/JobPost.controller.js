@@ -12,13 +12,12 @@ const ViewJobs = async (req, res) => {
 
 const ViewPaginatedJobs = async (req, res) => {
     try {
-        const option = {
-            sort: { createdAt: -1 },
-            page: parseInt(req.query.page) || 1,
-            limit: 10
-        }
 
-        const result = await JobPost.paginate(option.page, option.limit, option.sort);
+
+        page = parseInt(req.query.page) || 1,
+            limit = 10
+
+        const result = await JobPost.paginate(page, limit);
 
         return res.status(200).json({
             success: true,
@@ -36,6 +35,7 @@ const ViewPaginatedJobs = async (req, res) => {
         res.status(500).send({ success: false, data: e.message, message: "service unavailable" });
     }
 };
+
 
 const CreateJob = async (req, res) => {
     try {
@@ -62,7 +62,6 @@ const CreateJob = async (req, res) => {
         return res.status(401).json({ message: "something went wrong", err: err.message });
     }
 }
-
 
 const getJobById = async (req, res) => {
     try {
