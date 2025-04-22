@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ApplicationSchema = new mongoose.Schema({
+const jobPostSchema = new mongoose.Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -51,7 +51,7 @@ const ApplicationSchema = new mongoose.Schema({
   },
 });
 
-ApplicationSchema.statics.paginate = async function (page, limit) {
+jobPostSchema.statics.paginate = async function (page, limit) {
 
   try {
     const skip = (page - 1) * limit;
@@ -85,6 +85,6 @@ ApplicationSchema.statics.paginate = async function (page, limit) {
 
 
 
-const JobPost = mongoose.model("JobPost", ApplicationSchema);
+const JobPost = mongoose.model("JobPost", jobPostSchema);
 
 module.exports = JobPost;

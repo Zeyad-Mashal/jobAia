@@ -5,11 +5,15 @@ const feetbackSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    comment:{
+    createdFor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "JobPost"
+    },
+    comment: {
         type: String,
         required: true
     },
-    rating:{
+    rating: {
         type: Number,
         required: true,
         min: 1,
@@ -18,9 +22,9 @@ const feetbackSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-      }
+    }
 })
 
-const feetback = mongoose.model("Feetback", feetbackSchema);
+const feedback = mongoose.model("Feedback", feetbackSchema);
 
-module.exports = feetback
+module.exports = feedback
