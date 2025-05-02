@@ -13,7 +13,7 @@ router.get('/jobDetails/:id', getJobById);
 
 router.get('/newestJobs', newestJobs);
 
-router.get('/relatedJobs/:id', getRelatedJobs);
+// router.get('/relatedJobs/:id', getRelatedJobs);
 
 
 

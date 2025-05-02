@@ -91,43 +91,43 @@ const newestJobs = async (req, res) => {
     }
 }
 
-const getRelatedJobs = async (req, res) => {
-    try {
-        const { id } = req.params;
+// const getRelatedJobs = async (req, res) => {
+//     try {
+//         const { id } = req.params;
 
-        // 1. Get the current job
-        const currentJob = await JobPost.findById(id);
-        if (!currentJob) {
-            return res.status(404).json({ message: "Job not found" });
-        }
+//         // 1. Get the current job
+//         const currentJob = await JobPost.findById(id);
+//         if (!currentJob) {
+//             return res.status(404).json({ message: "Job not found" });
+//         }
 
-        // 2. Find related jobs (same type/location/skills)
-        const relatedJobs = await JobPost.find({
-            $or: [
-                { jobType: { $in: currentJob.jobType } },
-                { city: currentJob.city },
-                { requiredSkills: { $in: currentJob.requiredSkills } }
-            ],
-            _id: { $ne: id } // Exclude current job
-        })
-            .limit(4)
-            .populate("createdBy", "email");
+//         // 2. Find related jobs (same type/location/skills)
+//         const relatedJobs = await JobPost.find({
+//             $or: [
+//                 { jobType: { $in: currentJob.jobType } },
+//                 { city: currentJob.city },
+//                 { requiredSkills: { $in: currentJob.requiredSkills } }
+//             ],
+//             _id: { $ne: id } // Exclude current job
+//         })
+//             .limit(4)
+//             .populate("createdBy", "email");
 
-        res.status(200).json({
-            success: true,
-            currentJobTitle: currentJob.jobTitle,
-            count: relatedJobs.length,
-            data: relatedJobs
-        });
+//         res.status(200).json({
+//             success: true,
+//             currentJobTitle: currentJob.jobTitle,
+//             count: relatedJobs.length,
+//             data: relatedJobs
+//         });
 
-    } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: "Error fetching related jobs",
-            error: err.message
-        });
-    }
-};
+//     } catch (err) {
+//         res.status(500).json({
+//             success: false,
+//             message: "Error fetching related jobs",
+//             error: err.message
+//         });
+//     }
+// };
 
 
-module.exports = { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById, newestJobs, getRelatedJobs };
+module.exports = { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById, newestJobs };
