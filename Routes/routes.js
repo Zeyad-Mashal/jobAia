@@ -10,7 +10,6 @@ const searchRoute = require("../Modules/search/search.routes")
 
 const filterRoute = require("../Modules/filter/filter.routes")
 
-const ProfileRoutes = require("../Modules/Profile/Profile.routes")
 
 
 module.exports = {
@@ -20,5 +19,4 @@ module.exports = {
     JobPostRoutes,
     searchRoute,
     filterRoute,
-    ProfileRoutes
 } 

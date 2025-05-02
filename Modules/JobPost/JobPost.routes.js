@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById, newestJobs } = require("../JobPost/Controller/JobPost.controller");
+const { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById, newestJobs, getRelatedJobs } = require("../JobPost/Controller/JobPost.controller");
 
 
 router.get('/JobPosting', ViewJobs);
@@ -13,7 +13,7 @@ router.get('/jobDetails/:id', getJobById);
 
 router.get('/newestJobs', newestJobs);
 
-// router.get('/relatedJobs/:id', getRelatedJobs);
+router.get('/relatedJobs/:id', getRelatedJobs);
 
 
 
