@@ -7,7 +7,7 @@ const FeedbackRoutes = require("../Modules/Feedback/Feedback.routes");
 const JobPostRoutes = require("../Modules/JobPost/JobPost.routes");
 const searchRoute = require("../Modules/search/search.routes");
 const filterRoute = require("../Modules/filter/filter.routes");
-const ProfileRoutes = require("../Modules/Profile/Profile.routes");
+const ProfileRoutes = require("../Modules/Profile/profile.routes");
 
 router.use(AuthRoutes);
 router.use(ApplicationRoutes);
