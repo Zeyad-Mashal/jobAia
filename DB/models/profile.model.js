@@ -1,48 +1,57 @@
+// Modules/Profile/Profile.model.js
+
 const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema({
     personalInfo: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "User",
+        required: true,
     },
     phoneNumber: {
         type: String,
-        required: true
+        required: true,
     },
     cv: {
         type: String,
-        required: true
+        required: true,
     },
-    age:{
+    age: {
         type: String,
-        required: true
+        required: true,
     },
-    minimumSalary:{
+    minimumSalary: {
         type: String,
     },
-    jobSearchStatus:{
+    jobSearchStatus: {
         type: String,
-        required: true
+        required: true,
     },
-    jobTitle:{
+    jobTitle: {
         type: [String],
-        required: true
+        required: true,
     },
-    jobCategory:{
-        type: [String],
-    },
-    jobType:{
-        type: [String],
-        required: true
-    },
-    workExperience:{
+    jobCategory: {
         type: [String],
     },
-    education:{
+    jobType: {
+        type: [String],
+        required: true,
+    },
+    workExperience: {
         type: [String],
     },
-})
+    education: {
+        type: [String],
+    },
+    skills: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Skill",
+        },
+    ],
+});
 
 const profile = mongoose.model("Profile", profileSchema);
 
-module.exports = profile
+module.exports = profile;
