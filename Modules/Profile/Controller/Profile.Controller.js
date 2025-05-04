@@ -4,8 +4,10 @@ const Application = require("../../../DB/models/Application.model");
 
 const Postdetails = async (req, res) => {
   try {
-    const userId = req.user.id; // 🟢 جيب اليوزر من التوكن
-
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ message: "please provide the id" });
+    }
     const {
       phoneNumber,
       cv,
@@ -19,9 +21,7 @@ const Postdetails = async (req, res) => {
       workExperience,
       education,
     } = req.body;
-
-    const newProfile = await profile.create({
-      personalInfo: userId, // 🟢 أضف اليوزر هنا
+    const newprofile = await profile.create({
       phoneNumber,
       cv,
       age,
@@ -33,22 +33,20 @@ const Postdetails = async (req, res) => {
       workExperience,
       education,
     });
-
-    const newSkill = await skills.create({ skillName });
-
-    return res.status(200).json({
-      message: "Details added successfully",
-      data: newProfile,
-      skill: newSkill,
-    });
+    const skill = await skills.create({ skillName });
+    return res
+      .status(200)
+      .json({
+        message: "details added successfully",
+        data: newprofile,
+        skill,
+      });
   } catch (err) {
-    return res.status(500).json({
-      message: "Something went wrong",
-      err: err.message,
-    });
+    return res
+      .status(401)
+      .json({ message: "something went wrong", err: err.message });
   }
 };
-
 
 const getProfile = async (req, res) => {
   try {

@@ -1,42 +1,39 @@
-// Modules/Profile/Profile.model.js
-
 const mongoose = require("mongoose");
 
 const profileSchema = new mongoose.Schema({
     personalInfo: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
+        ref: "User"
     },
     phoneNumber: {
         type: String,
-        required: true,
+        required: true
     },
     cv: {
         type: String,
-        required: true,
+        required: true
     },
     age: {
         type: String,
-        required: true,
+        required: true
     },
     minimumSalary: {
         type: String,
     },
     jobSearchStatus: {
         type: String,
-        required: true,
+        required: true
     },
     jobTitle: {
         type: [String],
-        required: true,
+        required: true
     },
     jobCategory: {
         type: [String],
     },
     jobType: {
         type: [String],
-        required: true,
+        required: true
     },
     workExperience: {
         type: [String],
@@ -44,14 +41,8 @@ const profileSchema = new mongoose.Schema({
     education: {
         type: [String],
     },
-    skills: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Skill",
-        },
-    ],
-});
+})
 
 const profile = mongoose.model("Profile", profileSchema);
 
-module.exports = profile;
+module.exports = profile
