@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Postdetails, getProfile, updateDetails, getUserApplications, getUserApplicants } = require("./Controller/Profile.controller");
+const { Postdetails, getProfile, updateDetails, getUserApplications, getUserApplicants } = require("../Profile/Controller/Profile.controller");
 
 
 router.post("/profile/:id", Postdetails);
