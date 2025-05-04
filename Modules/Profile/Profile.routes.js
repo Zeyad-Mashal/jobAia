@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { Postdetails, getProfile, updateDetails, getUserApplications, getUserApplicants } = require('Modules/Profile/Controller/Profile.controller.js');
+const path = require('path');
+const profileControllerPath = path.join(__dirname, 'Controller', 'Profile.controller');
+const { Postdetails, getProfile, updateDetails, getUserApplications, getUserApplicants } = require(profileControllerPath);
+// const { Postdetails, getProfile, updateDetails, getUserApplications, getUserApplicants } = require('Modules/Profile/Controller/Profile.controller.js');
 
 router.post("/profile/:id", Postdetails);
 
