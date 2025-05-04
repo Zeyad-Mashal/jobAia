@@ -8,19 +8,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const { AuthRoutes, ApplicationRoutes, FeedbackRoutes, JobPostRoutes, searchRoute, filterRoute, ProfileRoutes } = require("./Routes/routes");
+const allRoutes = require('./Routes/routes');
+app.use(allRoutes);
+
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-
-
-app.use(AuthRoutes);
-app.use(ApplicationRoutes);
-app.use(FeedbackRoutes);
-app.use(JobPostRoutes);
-app.use(searchRoute)
-app.use(filterRoute)
-app.use(ProfileRoutes)
 
 const port = process.env.PORT;
 mongoose.connect(process.env.MONGO_URL).then(() => {
