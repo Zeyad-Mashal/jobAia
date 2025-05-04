@@ -14,6 +14,4 @@ router.get("/applications/user/:id", getUserApplications);
 router.get("/applications/JobPost/:jobPostId", getUserApplicants)
 
 
-
-
 module.exports = router;
