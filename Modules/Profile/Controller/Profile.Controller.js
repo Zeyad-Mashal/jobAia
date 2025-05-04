@@ -179,4 +179,4 @@ const getUserApplicants = async (req, res) => {
   }
 };
 
-module.exports = { Postdetails, getProfile, updateDetails, getUserApplications, getUserApplicants }
+module.exports = { Postdetails, getProfile, updateDetails, getUserApplications, getUserApplicants };
