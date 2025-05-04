@@ -2,14 +2,15 @@ const jwt = require("jsonwebtoken");
 const requireAuth = async (req, res, next) => {
     const token = req.cookies.jwt;
     if (!token) {
-        return res.status(401).json({message : "Token not found"});
+        return res.status(401).json({ message: "Token not found" });
     }
     try {
-        jwt.verify(token, "secret") 
+        const decoded = jwt.verify(token, "secret");
+        req.user = decoded; // 🟢 كده تقدر تستخدم req.user.id بعدين
         next();
-    }catch (err) {
-        return res.status(401).json({status : httpStatusText.ERROR , message : "Invalid Token"})
+    } catch (err) {
+        return res.status(401).json({ message: "Invalid Token" });
     }
 };
 
-module.exports = requireAuth ;
+module.exports = requireAuth;

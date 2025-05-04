@@ -4,10 +4,8 @@ const Application = require("../../../DB/models/Application.model");
 
 const Postdetails = async (req, res) => {
   try {
-    const id = req.params.id;
-    if (!id) {
-      return res.status(400).json({ message: "please provide the id" });
-    }
+    const userId = req.user.id; // 🟢 جيب اليوزر من التوكن
+
     const {
       phoneNumber,
       cv,
@@ -21,7 +19,9 @@ const Postdetails = async (req, res) => {
       workExperience,
       education,
     } = req.body;
-    const newprofile = await profile.create({
+
+    const newProfile = await profile.create({
+      personalInfo: userId, // 🟢 أضف اليوزر هنا
       phoneNumber,
       cv,
       age,
@@ -33,20 +33,22 @@ const Postdetails = async (req, res) => {
       workExperience,
       education,
     });
-    const skill = await skills.create({ skillName });
-    return res
-      .status(200)
-      .json({
-        message: "details added successfully",
-        data: newprofile,
-        skill,
-      });
+
+    const newSkill = await skills.create({ skillName });
+
+    return res.status(200).json({
+      message: "Details added successfully",
+      data: newProfile,
+      skill: newSkill,
+    });
   } catch (err) {
-    return res
-      .status(401)
-      .json({ message: "something went wrong", err: err.message });
+    return res.status(500).json({
+      message: "Something went wrong",
+      err: err.message,
+    });
   }
 };
+
 
 const getProfile = async (req, res) => {
   try {
@@ -67,7 +69,7 @@ const getProfile = async (req, res) => {
       },
     });
     const foundSkill = await skills.findById(idSkill);
-    return res.status(200).json({message: "Profile found successfully", data: foundProfile , skill: foundSkill,});
+    return res.status(200).json({ message: "Profile found successfully", data: foundProfile, skill: foundSkill, });
   } catch (err) {
     return res
       .status(401)
@@ -137,7 +139,7 @@ const getUserApplications = async (req, res) => {
       return res.status(400).json({ message: "Please provide the user ID" })
     }
 
-    
+
     const applications = await Application.find({ createdBy: id })
 
     if (!applications || applications.length === 0) {
@@ -145,13 +147,13 @@ const getUserApplications = async (req, res) => {
     }
 
     return res.status(200).json({
-      apiStatus: true, 
+      apiStatus: true,
       data: applications,
       message: "Applications retrieved successfully"
-    
+
     });
   } catch (e) {
-    return res.status(500).json({ apiStatus:false ,data: e.message, message: "Something went wrong"  })
+    return res.status(500).json({ apiStatus: false, data: e.message, message: "Something went wrong" })
   }
 }
 // ================= get applicants createdFor => hussien =================  
