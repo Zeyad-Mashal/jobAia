@@ -12,6 +12,8 @@ const filterRoute = require("../Modules/filter/filter.routes")
 
 const ApplicationsAndApplicants = require("../Modules/Applications-Applicants/ApplicationsAndApplicants.routes")
 
+const ContactRouts = require("../Modules/ContactUs/ContactUs.routes")
+
 
 module.exports = {
     AuthRoutes,
@@ -20,5 +22,6 @@ module.exports = {
     JobPostRoutes,
     searchRoute,
     filterRoute,
-    ApplicationsAndApplicants
+    ApplicationsAndApplicants,
+    ContactRouts
 } 
