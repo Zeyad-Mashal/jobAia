@@ -129,5 +129,29 @@ const getRelatedJobs = async (req, res) => {
     }
 };
 
+const getCompanyName = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const jobs = await JobPost.find({ createdBy: id }).populate({ path: "createdBy", select: { CompanyName: 1, role: 1 } });
 
-module.exports = { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById, newestJobs, getRelatedJobs };
+        if (!jobs || jobs.length === 0) {
+            return res.status(404).json({ message: "Jobs not found" });
+        }
+
+        const userRole = jobs[0].createdBy.role;
+        if (userRole === "Basic") {
+            return res.status(404).json({ message: "Not Access" });
+        }
+
+        if (userRole === "Business") {
+            return res.status(200).json(jobs);
+        }
+
+        return res.status(403).json({ message: "Unauthorized role" });
+    } catch (error) {
+        return res.status(500).json({ message: "Something went wrong", error: error.message });
+    }
+};
+
+
+module.exports = { ViewJobs, CreateJob, ViewPaginatedJobs, getJobById, newestJobs, getRelatedJobs, getCompanyName };
