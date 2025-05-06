@@ -28,5 +28,19 @@ const GetComments = async (req, res) => {
     }
 }
 
+const GetOneFeedback = async (req, res) => {
+    try {
+        // const feedbackID = req.params.feedbackID;
+        const id = req.params.id;
+        const OneFeedback = await feedback.find({ createdBy: id }).populate({ path: "createdBy", select: "CompanyName email" });
+        if (!id) {
+            return res.status(401).json({ message: "ID not found" });
+        }
+        return res.status(200).json({ message: "Success", OneFeedback });
+    } catch (err) {
+        return res.status(401).json({ message: "Something went wrong", error: err.message });
+    }
+}
 
-module.exports = { PostComment, GetComments }
+
+module.exports = { PostComment, GetComments, GetOneFeedback }
